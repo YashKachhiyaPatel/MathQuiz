@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+	<title>Math Quiz</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body>
+
+<audio id="wrong">
+   <source src="wrong1.mp3" type="audio/mpeg">
+</audio>
+<audio id="right">
+   <source src="right1.mp3" type="audio/mpeg">
+</audio>
+<section>
+	
+ <h1> Math Quiz  :-)</h1>
+
+ <div class="centerdiv">
+   <div class="insertbox">
+   	  <div class="box1">
+   	  	<input type="text" id="v1">
+   	  </div>
+   	  <div class="box1">
+   	  	<p class="sign">+</p>
+   	  </div>
+   	  <div class="box1">
+   	  	<input type="text" id="v2">
+   	  </div>
+   </div>
+ 	
+ 	 <div class="middlebox">
+ 		<input type="text" id="answ">
+ 	 </div>
+
+ 	 <div class="sentBox">
+ 	 	<button onclick="jsGame()">Check Answer</button>
+ 	 </div>
+
+   <marquee>
+   <button class="yash">YASH</button>
+    <span class="coma">[</span>
+     <span  id="score">0</span>
+        <span id="slas">/</span> 
+     <span id="total">0</span>
+     <span class="coma">]</span> 
+    </marquee>
+ </div>
+
+ </section>
+ <script>
+  const signList = ["+","-","x","/"];
+  let name = prompt("Enter Your Name !");
+  document.querySelector(".yash").innerHTML = name;
+ 	let n1 = Math.floor(Math.random()*100+1);
+ 	let n2 = Math.floor(Math.random()*10+1);
+  let randomSign = Math.floor(Math.random() * signList.length);
+   const sign = document.querySelector('.sign');
+
+    var c=document.getElementById("score");
+   var t=document.getElementById("total");
+   const btn = document.getElementById('btn');
+   var score=1;
+   var total = 1;
+ 
+  sign.textContent = signList[randomSign];
+ 	document.getElementById('v1').value = n1;
+ 	document.getElementById('v2').value = n2;
+
+ 	let ans = getAnswer(n1,n2,sign.textContent);
+  
+ 	const jsGame = () => {
+ 		var usera= document.getElementById('answ').value;
+       var ar = document.getElementById('right');
+      var aw = document.getElementById('wrong');
+ 	
+        console.log("user : "+usera);
+ 		if (usera == ans) { 
+         t.innerHTML = total++;
+         c.innerHTML = score++;
+ 			swal("Good job!", "Answer is correct!", "success");
+         ar.play();
+ 		}else{
+          t.innerHTML = total++;
+         aw.play();
+ 		  swal(" Wrong!  Correct answer: ",+ ans + ".");
+ 		}
+
+    document.getElementById('answ').value = "";
+    n1 = Math.floor(Math.random()*100+1);
+ 	 n2 = Math.floor(Math.random()*10+1);
+ randomSign = Math.floor(Math.random() * signList.length);
+ sign.textContent = signList[randomSign];
+
+    ar = document.getElementById('right');
+    aw = document.getElementById('wrong');
+
+
+   ans = getAnswer(n1,n2,sign.textContent);
+   console.log(ans,sign.textContent);
+
+ 	document.getElementById('v1').value = n1;
+ 	document.getElementById('v2').value = n2;
+     
+ 	}
+
+function getAnswer(a,b,signa)
+{
+  console.log(a,b);
+  let final;
+  if (signa == "+") {
+    final = a+b;
+  }
+  if (signa == "-") {
+    final = a-b;
+  }
+  if( signa == "x"){
+    final = a*b;
+  }
+  if (signa == "/")
+  {
+    final = a/b;
+  }
+ return Math.floor(final);
+}
+
+ </script>
+</body>
+</html>
